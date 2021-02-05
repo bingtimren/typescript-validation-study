@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/bingtimren/typescript-validation-study#readme",
   "dependencies": {
-    "@bingsjs/cli-utils": "^1.1.3",
     "@tsconfig/node14": "^1.0.0",
     "@types/jest": "^26.0.20",
     "@types/mongoose": "^5.10.3",
