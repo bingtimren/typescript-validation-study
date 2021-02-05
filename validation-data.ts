@@ -113,10 +113,10 @@ const _testCases : TestCases = [
     },
     {
         schema:"person",
-        id:"dob-1s-too-young",
+        id:"dob-is-too-young",
         data: {
             name:"Abc",
-            dob:(new Date(Date.now()-24*60*60*1000*365*18+1000)).toUTCString(),
+            dob:(new Date(Date.now()-24*60*60*1000*365*18+60*1000)).toUTCString(),
             sex:"M",
             password:"12345"
         },

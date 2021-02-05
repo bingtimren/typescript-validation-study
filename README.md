@@ -21,7 +21,7 @@ I wish to find a solution that satisfy the following goals:
 ## Example Problem and Test Criterias 
 
 Person:
-  - name: required, string, length 3~20, pattern (tests Find-grained, Form-friendly (reports actual length), Combinable / Customizable
+  - name: required, string, length 3~20, pattern /[a-z A-Z ]+/ (tests Find-grained, Form-friendly (reports actual length), Combinable / Customizable
   - dob: date, required, < now-18 (tests Fine-grained, Combinable / Customizable)
   - sex: optional, 'M', 'F', 'O'
   - password: not null, string, length >= 5

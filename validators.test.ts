@@ -4,9 +4,11 @@ import { Validators, Validator, TestCase } from '.'
 
 // prepare the modules
 import iots from './solutions/io-ts'
+import joi from './solutions/joi'
 
 const testTable: [string, Validators][] = [
-    ["io-ts", iots]
+    ["io-ts", iots],
+    ["joi", joi]
 ];
 
 describe('Validator Test', () => {
