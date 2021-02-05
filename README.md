@@ -15,14 +15,16 @@ I wish to find a solution that satisfy the following goals:
 - Failfast - for backend validation, fail at first violation
 - Combinable - allows multiple validators on same node (AND), or even better, allows a logic expression
 - Customizable - allows custom validators
+- Traversable - runtime schema can be traversed at runtime
 - Standard - if the schema / type defining language is a standard and supported by a community
 
 ## Example Problem and Test Criterias 
 
 Person:
-  - name: not null, string, length 3~20, pattern (tests Find-grained, Form-friendly (reports actual length), Combinable / Customizable
-  - dob: date, not null, < now-18 (tests Fine-grained, Combinable / Customizable)
-  - password: not null, string, length > 5
+  - name: required, string, length 3~20, pattern (tests Find-grained, Form-friendly (reports actual length), Combinable / Customizable
+  - dob: date, required, < now-18 (tests Fine-grained, Combinable / Customizable)
+  - sex: optional, 'M', 'F', 'O'
+  - password: not null, string, length >= 5
 
 PersonForm:
   extends Person (tests Extensible)
@@ -46,8 +48,79 @@ Fleet: (tests Composable)
 
 ## Results
 
-| Solution | DRY | Composable | Extensible | Fine-grained | Form-friendly | Failfast | Standard |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+
+### io-ts
+
+Reference: https://medium.com/swlh/typescript-runtime-validation-with-io-ts-456f095b7f86
+
+
+| Goal | Achieved | Comment |
+| ---  | -------- | ------- |
+| DRY | Yes | Define run-time type, extract corresponding static type |
+| Composable | Yes | Defined run-time types can be used as building blocks for other types |
+| Extensible |  Yes | Use 'pipe' to add properties |
+| Fine-grained |  Yes/no | Not out-of-box, but can write custom decoders |
+| Combinable | Yes | Uses 'pipe' to combine multiple validators |
+| Form-friendly | No | Not enough information in Either to report |
+| Fail-fast | Yes | |
+| Customizable | Yes | Can write custom decoders, refines, etc. |
+| Traversable | No | The realtime type is a decoder, with a decode function |
+| Standard | No | Realtime type defined with io-ts |
+
+Comment:
+
+To use io-ts also means to use at least some basic fp-ts and functional programming.
+
+
+
+### mongoose + ts-mongoose
+
+References:
+
+https://hackernoon.com/how-to-link-mongoose-and-typescript-for-a-single-source-of-truth-94o3uqc
+
+
+| Goal | Achieved | Comment |
+| ---  | -------- | ------- |
+| DRY | Yes | With additional ts-mongoose type can be extracted |
+| Composable | | |
+| Extensible | | |
+| Fine-grained | | |
+| Combinable | | |
+| Form-friendly | | |
+| Fail-fast | | |
+| Customizable | | |
+| Traversable | | |
+| Standard | | |
+
+
+Comment:
+
+Didn't finish this research. Mongoose is too tightly coupled with mongodb. Did not find a way to validate data without attempt to save it. Not a suitable candidate.
+
+
+### template
+
+
+
+| Goal | Achieved | Comment |
+| ---  | -------- | ------- |
+| DRY | | |
+| Composable | | |
+| Extensible | | |
+| Fine-grained | | |
+| Combinable | | |
+| Form-friendly | | |
+| Fail-fast | | |
+| Customizable | | |
+| Traversable | | |
+| Standard | | |
+
+
+Comment:
+
+
+
 
 
 ## Reference and credits
