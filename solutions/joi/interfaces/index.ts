@@ -3,6 +3,37 @@
  * Do not modify this file manually
  */
 
+export interface DriverSchema {
+  /**
+   * Unknown Property
+   */
+  [x: string]: any;
+  dob: Date;
+  licenseNo: string;
+  name: string;
+  password: string;
+  sex?: 'M' | 'F' | 'O';
+}
+
+export type FleetSchema = ({
+  driver?: {
+    /**
+     * Unknown Property
+     */
+    [x: string]: any;
+    dob: Date;
+    licenseNo: string;
+    name: string;
+    password: string;
+    sex?: 'M' | 'F' | 'O';
+  };
+  vehicle?: {
+    length: number;
+    seats: number;
+    type: 'car' | 'bus';
+  };
+})[];
+
 export interface PersonFormSchema {
   /**
    * Unknown Property
@@ -24,4 +55,10 @@ export interface PersonSchema {
   name: string;
   password: string;
   sex?: 'M' | 'F' | 'O';
+}
+
+export interface VehicleSchema {
+  length: number;
+  seats: number;
+  type: 'car' | 'bus';
 }

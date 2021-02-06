@@ -1,14 +1,27 @@
 // must export 'validators'
-import {Validators} from "../.."
-import {PersonSchema, PersonFormSchema} from "./schemas"
+import Joi from "joi"
+import { Validators } from "../.."
+import { PersonSchema, PersonFormSchema, DriverSchema, VehicleSchema, FleetSchema } from "./schemas"
+import { pipe } from "fp-ts/pipeable"
+
+const validator: (schema: Joi.Schema) => ((data: any) => any) =
+    (schema) => (
+        (data) => (
+            pipe(
+                data,
+                schema.validate.bind(schema),
+                (result) => (result.error === undefined ? true : result)
+            )
+        )
+    )
 
 
-const validators : Validators = {
-    person: (data)=>PersonSchema.validate(data).error === undefined,
-    // driver: (data) => isRight(Driver.decode(data)),
-    // fleet: (data) => isRight(Fleet.decode(data)),
-    // vehicle: (data) => isRight(Vehicle.decode(data)),
-    personForm: (data) => PersonFormSchema.validate(data).error === undefined,
+const validators: Validators = {
+    person: validator(PersonSchema),
+    driver: validator(DriverSchema),
+    fleet: validator(FleetSchema),
+    vehicle: validator(VehicleSchema),
+    personForm: validator(PersonFormSchema),
 }
 
 export default validators

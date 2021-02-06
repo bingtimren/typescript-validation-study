@@ -7,7 +7,8 @@
     "test": "run-s pre jest",
     "jest": "jest",
     "pre": "run-p pre:*",
-    "pre:joi": "ts-node solutions/joi/script/joi-to-interface.ts"
+    "pre:joi": "ts-node solutions/joi/script/joi-to-interface.ts",
+    "inspect":"ts-node inspect-error-objects.ts"
   },
   "engines": {
     "node": ">=0.12"
@@ -36,6 +37,7 @@
     "npm-run-all": "^4.1.5",
     "ts-jest": "^26.5.0",
     "ts-mongoose": "0.0.24",
+    "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   }
 }

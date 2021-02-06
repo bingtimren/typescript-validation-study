@@ -1,20 +1,10 @@
 import { testCases } from "./validation-data"
-import fs from 'fs'
-import { Validators, Validator, TestCase } from '.'
-
-// prepare the modules
-import iots from './solutions/io-ts'
-import joi from './solutions/joi'
-
-const testTable: [string, Validators][] = [
-    ["io-ts", iots],
-    ["joi", joi]
-];
+import { Validator, TestCase, solutions } from '.'
 
 describe('Validator Test', () => {
     // prepare case table
     const caseTable: [string, TestCase, Validator][] = [];
-    for (let [solName, solModule] of testTable) {
+    for (let [solName, solModule] of solutions) {
         for (let tcase of testCases) {
             const validator = solModule[tcase.schema];
             if (validator !== undefined) {

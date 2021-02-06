@@ -19,3 +19,12 @@ export type TestCase =
     }
 
 export type TestCases = TestCase[]    
+
+
+import iots from './solutions/io-ts'
+import joi from './solutions/joi'
+
+export const solutions: [string, Validators][] = [
+    ["io-ts", iots],
+    ["joi", joi]
+];
