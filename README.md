@@ -32,7 +32,7 @@ PersonForm:
 
 Driver:
   extends Person (tests Extensible)
-  - licenseNo: string, length 3~30, pattern
+  - licenseNo: string, length 3~30, pattern /^[a-zA-Z]+$/
 
 Vehicle:
   - type: 'car','bus' (DRY)
@@ -61,8 +61,8 @@ Reference: https://medium.com/swlh/typescript-runtime-validation-with-io-ts-456f
 | Extensible |  Yes | Use 'pipe' to add properties |
 | Fine-grained |  Yes/no | Not out-of-box, but can write custom decoders |
 | Combinable | Yes | Uses 'pipe' to combine multiple validators |
-| Form-friendly | No | Not enough information in Either to report |
-| Fail-fast | Yes | |
+| Form-friendly | Yes-but | Look at the returned object, all errors about all nodes of the data are there. However the useful information is buried in a myriad of wrappers and difficult to use. There is a default error reporter that is able to retrieve the information and organize in a meaningful way, meaning utilization of the information is possible, but more work needs to be done. |
+| Fail-fast | No | The decoder does not stop at first error |
 | Customizable | Yes | Can write custom decoders, refines, etc. |
 | Traversable | No | The realtime type is a decoder, with a decode function |
 | Standard | No | Realtime type defined with io-ts |
@@ -70,6 +70,31 @@ Reference: https://medium.com/swlh/typescript-runtime-validation-with-io-ts-456f
 Comment:
 
 To use io-ts also means to use at least some basic fp-ts and functional programming.
+
+### Joi
+
+Can it work on both back-end and front-end? One user [said](https://www.reddit.com/r/reactjs/comments/awluya/reusable_validation_at_serverside_and_frontend/) "I used shared joi schema on backend, web frontend and react-native app. In the end I ditched it, because it's super heavy and requires joi-browser and some extra hacking to work on client side."
+
+| Goal | Achieved | Comment |
+| ---  | -------- | ------- |
+| DRY | Yes* | With joi-to-typescript, Joi schema can be used to generate typescript types (code generation)  |
+| Composable | Yes | |
+| Extensible | Yes | |
+| Fine-grained | Yes | |
+| Combinable | Yes | |
+| Form-friendly | Yes | There is an "abortEarly" option    |
+| Fail-fast | Yes | |
+| Customizable | Yes | |
+| Traversable | Maybe | Didn't really check. |
+| Standard | Kind-of | Joi is hugely popular |
+
+
+Comment:
+
+Joi is hugely popular so there's an ecosystem around it.
+Some says it's heavy and not front-end friendly. The same post suggests yup.
+There are joi browser and joi vue integration packages out there, not sure how it works.
+
 
 
 
@@ -99,6 +124,11 @@ Comment:
 Didn't finish this research. Mongoose is too tightly coupled with mongodb. Did not find a way to validate data without attempt to save it. Not a suitable candidate.
 
 
+
+
+
+
+
 ### template
 
 
@@ -118,7 +148,6 @@ Didn't finish this research. Mongoose is too tightly coupled with mongodb. Did n
 
 
 Comment:
-
 
 
 

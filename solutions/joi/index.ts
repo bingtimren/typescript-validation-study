@@ -9,7 +9,9 @@ const validator: (schema: Joi.Schema) => ((data: any) => any) =
         (data) => (
             pipe(
                 data,
-                schema.validate.bind(schema),
+                (data)=>schema.validate(data, {
+                    abortEarly:false
+                }),
                 (result) => (result.error === undefined ? true : result)
             )
         )

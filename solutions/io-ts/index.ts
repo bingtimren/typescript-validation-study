@@ -3,7 +3,7 @@ import { Validators } from "../.."
 import { Person, PersonForm, Driver, Vehicle, Fleet } from "./types"
 import { isRight } from 'fp-ts/Either'
 import { pipe } from "fp-ts/pipeable"
-import { Decoder } from "io-ts/Decoder"
+import { Decoder, draw } from "io-ts/Decoder"
 
 const validator: (decoder: Decoder<any, any>) => ((data: any) => any) =
     (decoder) => (
@@ -11,7 +11,7 @@ const validator: (decoder: Decoder<any, any>) => ((data: any) => any) =
             pipe(
                 data,
                 decoder.decode,
-                (result: any) => (isRight(result) ? true : result)
+                (result: any) => (isRight(result) ? true : draw(result.left))
             )
         )
     );

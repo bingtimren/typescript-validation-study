@@ -411,7 +411,7 @@ const _testCases : TestCases = [
         data:[
             {
                 driver:{
-                    name:"Abc !!!",
+                    name:"123",
                     dob:"2100-01-01",
                     sex:"-",
                     password:"",
@@ -425,7 +425,7 @@ const _testCases : TestCases = [
             },
             {
                 driver:{
-                    name:"Abc !!!",
+                    name:"123",
                     dob:"2100-01-01",
                     sex:"-",
                     password:"",
