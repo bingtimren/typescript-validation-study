@@ -1,0 +1,23 @@
+{
+    "$id": "personForm.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "title": "Person Form",
+    "description": "Person Form with repeat password",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "person.json"
+        },
+        {
+            "properties": {
+                "repeatPassword":{
+                    "type":"string",
+                    "const":{
+                        "$data":"/password"
+                    }
+                }
+            },
+            "required":["repeatPassword"]
+        }
+    ]
+}

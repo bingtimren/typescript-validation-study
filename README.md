@@ -96,6 +96,37 @@ Some says it's heavy and not front-end friendly. The same post suggests yup.
 There are joi browser and joi vue integration packages out there, not sure how it works.
 
 
+### json-schema based
+
+JSON schema has a huge ecology surrounding it. Schema defined with JSON Schema has lots of tools supporting it. 
+
+Considerations:
+
+For DRY requirement, there are libraries to convert from typescript to JSON Schema and reverse. Since JSON Schema is more fine-grained than typescript types (minimum length, etc.), typescript schema definition would rely on annotation, which lacks tool support. 
+
+
+This test uses:
+
+ajv : validator
+json-schema-to-typescript : produce typescript types
+
+
+
+| Goal | Achieved | Comment |
+| ---  | -------- | ------- |
+| DRY | | |
+| Composable | | |
+| Extensible | | |
+| Fine-grained | | |
+| Combinable | | |
+| Form-friendly | | |
+| Fail-fast | | |
+| Customizable | | |
+| Traversable | | |
+| Standard | | |
+
+
+Comment:
 
 
 ### mongoose + ts-mongoose

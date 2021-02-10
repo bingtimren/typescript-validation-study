@@ -1,0 +1,41 @@
+{
+    "$id": "person.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Person",
+    "description": "A Person",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+        "name": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 20,
+            "pattern": "[a-z A-Z ]+"
+        },
+        "dob": {
+            "type": "string",
+            "anyOf": [
+                {"format": "date"},
+                {"format": "date-time"}
+            ],
+            "olderThanFromNow":567648000000
+        },
+        "sex": {
+            "type": "string",
+            "enum": [
+                "M",
+                "F",
+                "O"
+            ]
+        },
+        "password": {
+            "type": "string",
+            "minLength": 5
+        }
+    },
+    "required": [
+        "name",
+        "dob",
+        "password"
+    ]
+}

@@ -94,7 +94,7 @@ const _testCases : TestCases = [
         id:"dob-too-young",
         data: {
             name:"Abc",
-            dob:(new Date()).toUTCString(),
+            dob:(new Date()).toISOString(),
             sex:"M",
             password:"12345"
         },
@@ -105,7 +105,7 @@ const _testCases : TestCases = [
         id:"dob-just-right",
         data: {
             name:"Abc",
-            dob:(new Date(Date.now()-24*60*60*1000*365*18)).toUTCString(),
+            dob:(new Date(Date.now()-24*60*60*1000*365*18)).toISOString(),
             sex:"M",
             password:"12345"
         },

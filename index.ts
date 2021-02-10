@@ -23,8 +23,10 @@ export type TestCases = TestCase[]
 
 import iots from './solutions/io-ts'
 import joi from './solutions/joi'
+import jschema from './solutions/json-schema'
 
 export const solutions: [string, Validators][] = [
     ["io-ts", iots],
-    ["joi", joi]
+    ["joi", joi],
+    ["json-schema", jschema]
 ];

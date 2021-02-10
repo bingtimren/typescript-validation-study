@@ -1,0 +1,19 @@
+{
+    "$id": "fleet.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "title": "Fleet",
+    "description": "Fleet",
+    "type":"array",
+    "items": {
+        "type":"object",
+        "properties": {
+            "driver":{
+                "$ref":"driver.json"
+            },
+            "vehicle":{
+                "$ref": "vehicle.json"
+            }
+        },
+        "required": ["driver","vehicle"]
+    }
+}

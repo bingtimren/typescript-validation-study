@@ -1,0 +1,22 @@
+{
+    "$id": "vehicle.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "title": "Vehicle",
+    "description": "Vehicle",
+    "type":"object",
+    "properties": {
+        "type":{
+            "type":"string",
+            "enum": ["car","bus"]
+        },
+        "seats":{
+            "type":"integer",
+            "minimum": 1
+        },
+        "length":{
+            "type":"number",
+            "minimum": 0
+        }
+    },
+    "required": ["type","seats","length"]
+}

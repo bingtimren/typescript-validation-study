@@ -1,0 +1,23 @@
+{
+    "$id": "driver.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "title": "Driver",
+    "description": "Driver",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "person.json"
+        },
+        {
+            "properties": {
+                "licenseNo":{
+                    "type":"string",
+                    "minLength":3,
+                    "maxLength": 30,
+                    "pattern": "^[a-zA-Z]+$"
+                }
+            },
+            "required": ["licenseNo"]
+        }
+    ]
+}

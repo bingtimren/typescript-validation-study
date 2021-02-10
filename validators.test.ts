@@ -8,7 +8,7 @@ describe('Validator Test', () => {
         for (let tcase of testCases) {
             const validator = solModule[tcase.schema];
             if (validator !== undefined) {
-                caseTable.push([`${solName} / ${tcase.schema}: ${tcase.id}`, tcase, validator])
+                caseTable.push([`${solName} / ${tcase.schema}: ${tcase.id} [${String(tcase.result).toUpperCase()}]`, tcase, validator])
             }
         }
     }
