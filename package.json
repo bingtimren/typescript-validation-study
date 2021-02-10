@@ -8,6 +8,7 @@
     "jest": "jest",
     "pre": "run-p pre:*",
     "pre:joi": "ts-node solutions/joi/script/joi-to-interface.ts",
+    "pre:json-schema": "json2ts -i solutions/json-schema/schemas/ -o solutions/json-schema/types/ --cwd solutions/json-schema/schemas/",
     "inspect": "ts-node inspect-error-objects.ts"
   },
   "engines": {
