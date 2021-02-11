@@ -8,7 +8,7 @@ Study of various typescript data validation solutions
 
 ## Evaluation Goals
 I wish to find a solution that satisfy the following goals:
-- DRY - don't repeat yourself, data schema / type shall be defined only once and then enable both static (compile time) and runtime checking. 
+- DRY - don't repeat yourself, data schema / type shall be defined only once and then enable both static (compile time) and runtime checking. Since the requirement of runtime validation is more specific than the typing system (e.g. maximum length of string, string pattern, etc.), it's often the validation schema is converted to the typescript types (losing some fine-grained constraints). 
 - Extensible (Composable & Extensible) - if data types are related, e.g. composition (one data type is the part of another), inheritance (one data type is the base of another), the solution shall allow such relationship so as not to repeat the codes
 - Fine-grained - enables validations similar to https://json-schema.org/draft/2019-09/json-schema-validation.html
 - Form-friendly - if the validation is friendly to UI forms, i.e. validate multiple fields, and give meaningful information
@@ -18,7 +18,9 @@ I wish to find a solution that satisfy the following goals:
 - Traversable - runtime schema can be traversed at runtime
 - Standard - if the schema / type defining language is a standard and supported by a community
 
-## Example Problem and Test Criterias 
+## Example Problem and Test Criteria
+
+I validate the following entities with each of the solutions.
 
 Person:
   - name: required, string, length 3~20, pattern /[a-z A-Z ]+/ (tests Find-grained, Form-friendly (reports actual length), Combinable / Customizable
@@ -45,6 +47,13 @@ Fleet: (tests Composable)
     vehicle: Vehicle
   }]
 
+## Test Method
+
+I implement validators using each of the tested solutions to validate the above entities. Find them in [/solutions](/solutions).
+
+Each module in the "solutions" dir exports a set of validators. I use them to validate the same set of [data](/validation-data.ts). Each solution needs to pass all the tests. To run the tests, execute `npm t`. While running the tests, the schemas are also compiled into typescript types, and you can find those in each solution's respective folders. Check the "pre" run script in [package.json](package.json).
+
+To examine if the validation result contains all the information for UI form, I used a "fleet" instance as example. Every items and fields of that instance have validation errors. The returned object should describe the problems in full. Run `npm run inspect` to examine the returned error object by each solution in checking that "fleet" instance.
 
 ## Results
 
@@ -98,35 +107,36 @@ There are joi browser and joi vue integration packages out there, not sure how i
 
 ### json-schema based
 
-JSON schema has a huge ecology surrounding it. Schema defined with JSON Schema has lots of tools supporting it. 
+JSON schema is a standard and has the support of an ecosystem - tools, libraries, tutorials, etc.
 
-Considerations:
+In my test I used:
 
-For DRY requirement, there are libraries to convert from typescript to JSON Schema and reverse. Since JSON Schema is more fine-grained than typescript types (minimum length, etc.), typescript schema definition would rely on annotation, which lacks tool support. 
-
-
-This test uses:
-
-ajv : validator
-json-schema-to-typescript : produce typescript types
-
-
+- ajv : used as JSON Schema validator
+- json-schema-to-typescript : produce typescript types (Note: be careful of a bug that overwrite source file https://github.com/bcherny/json-schema-to-typescript/issues/365)
 
 | Goal | Achieved | Comment |
 | ---  | -------- | ------- |
-| DRY | | |
-| Composable | | |
-| Extensible | | |
-| Fine-grained | | |
-| Combinable | | |
-| Form-friendly | | |
-| Fail-fast | | |
-| Customizable | | |
-| Traversable | | |
-| Standard | | |
+| DRY | Yes | The conversion works well |
+| Composable | Yes | With "$ref" JSON schema can be composed. See [https://json-schema.org/understanding-json-schema/structuring.html] |
+| Extensible | Yes | Although not in an typical OO way such as "extends", but to use "allOf", it works |
+| Fine-grained | Yes | Has a rich keywords for defining fine-grained constraints |
+| Combinable | Yes | Multiple keywords can be added to single data point, and "allOf" can also be used  |
+| Form-friendly | Yes | Through an option "allErrors: true" |
+| Fail-fast | Yes | Option "allErrors: false" |
+| Customizable | Yes | See [user defined keywords](https://ajv.js.org/docs/keywords.html) for details. Keywords can be defined with code generation, validation function, compilation function, and macro function. However the document is a bit vague and code generation is difficult to debug, maybe only suitable for simple implementations. See an example in [index.ts](/solutions/json-schema/index.ts).  |
+| Traversable | Yes | JSON schema is a JSON itself |
+| Standard | Yes | |
 
 
 Comment:
+
+This solution ticks all the boxes. Plus ajv claim to be the fastest among all JSON schema validators and works well in both backend and frontend. 
+
+My experience working with this solution is:
+
+Yes it's powerful, once you figure out how to do things. Also there are a lot of tools out there help you write your schema. However when something went wrong with the schema, sometimes the error message returned from ajv is vague and does not give the location of the error, leaves me scratching my head. To define custom validation keywords with code generation is not intuitive and if things go wrong, it can be difficult to debug (due to the nature of code generation). Nevertheless other methods are provided. 
+
+My overall experience is json-schema (ajv) is not as easy to use as joi. That's said, ajv claim to work well on both front and back end, while there are complaints about joi on frontend (not verified myself). Both ajv and joi should be powerful enough to satisfy most validation needs.
 
 
 ### mongoose + ts-mongoose
