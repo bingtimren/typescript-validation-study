@@ -47,6 +47,12 @@ Fleet: (tests Composable)
     vehicle: Vehicle
   }]
 
+## Candidate Criteria
+
+The candidates must not be experimental, at least not stated as experimental in README.
+
+Validation is done against plain Javascript objects, not requiring data to be class objects.
+
 ## Test Method
 
 I implement validators using each of the tested solutions to validate the above entities. Find them in [/solutions](/solutions).
@@ -166,13 +172,21 @@ Comment:
 
 Didn't finish this research. Mongoose is too tightly coupled with mongodb. Did not find a way to validate data without attempt to save it. Not a suitable candidate.
 
+## Maybe one day......
+
+The following candidates are in my radar. I did not try them at this moment, but maybe one day I will.
+
+- class-validator + class-transformer: this is a class based solution. However class-transformer can transform plain Javascript objects into class instances. 
 
 
 
+## Reference and credits
 
+Reference: https://learning-notes.mistermicheels.com/javascript/typescript/runtime-type-checking/
 
+----
 
-### template
+### template (for next candidate)
 
 
 
@@ -192,9 +206,3 @@ Didn't finish this research. Mongoose is too tightly coupled with mongodb. Did n
 
 Comment:
 
-
-
-
-## Reference and credits
-
-Reference: https://learning-notes.mistermicheels.com/javascript/typescript/runtime-type-checking/
