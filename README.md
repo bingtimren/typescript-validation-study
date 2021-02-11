@@ -109,6 +109,8 @@ There are joi browser and joi vue integration packages out there, not sure how i
 
 JSON schema is a standard and has the support of an ecosystem - tools, libraries, tutorials, etc.
 
+There are converters to convert JSON schema to typescript types and converters to do the reverse. Since JSON schema is more expressive in specifying validation rules, to specify validation rules in typescript types, non-standard annotations are to be used in comments. For this reason I prefer writing schema in JSON schema and convert to typescript types.
+
 In my test I used:
 
 - ajv : used as JSON Schema validator
