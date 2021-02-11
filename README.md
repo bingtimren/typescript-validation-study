@@ -110,6 +110,29 @@ Joi is hugely popular so there's an ecosystem around it.
 Some says it's heavy and not front-end friendly. The same post suggests yup.
 There are joi browser and joi vue integration packages out there, not sure how it works.
 
+### YUP
+
+YUP is inspired by Joi. In fact working with YUP is very much like working with JOI. Both very easy to work with, especially with code assist when defining schemas. TS types can be converted from schema out-of-box, without adding another tool or build step.
+
+
+| Goal | Achieved | Comment |
+| ---  | -------- | ------- |
+| DRY | Yes | out-of-box support |
+| Composable | Yes | |
+| Extensible | Yes | |
+| Fine-grained | Yes | |
+| Combinable | | Yes |
+| Form-friendly | Yes | |
+| Fail-fast | Yes | |
+| Customizable | Yes | |
+| Traversable |  Not sure | |
+| Standard | No, but reasonably popular | |
+
+
+Comment:
+
+YUP self-claim to be the leaner and more front-end friendly alternative of JOI, and probably there's a truth behind it. In terms of [popularity](https://www.npmtrends.com/ajv-vs-joi-vs-yup) JOI is a bit more popular than YUP. Yet I found some developer comments their switch from JOI to YUP. 
+
 
 ### json-schema based
 
@@ -171,6 +194,15 @@ https://hackernoon.com/how-to-link-mongoose-and-typescript-for-a-single-source-o
 Comment:
 
 Didn't finish this research. Mongoose is too tightly coupled with mongodb. Did not find a way to validate data without attempt to save it. Not a suitable candidate.
+
+## Conclusion
+
+For Json schema based, ajv is a good choice. Also it's much more [popular](https://www.npmtrends.com/ajv-vs-joi-vs-yup-vs-io-ts) then the other options. However JSON schema is more verbose than, and a bit more difficult to work with (still ok) than schema defined with codes.
+
+JOI and YUP are very similar. Both define schema with codes, that has good typescript support (code assist). They are both very easy to work with. YUP claim to be leaner and more front-end friendly.
+
+IO-TS is very functional programming inclined. In fact it's nearly impossible to work with IO-TS without working with FP-TS and to understand some concepts of functional programming. 
+
 
 ## Maybe one day......
 
