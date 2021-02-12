@@ -138,7 +138,11 @@ YUP self-claim to be the leaner and more front-end friendly alternative of JOI, 
 
 JSON schema is a standard and has the support of an ecosystem - tools, libraries, tutorials, etc.
 
-There are converters to convert JSON schema to typescript types and converters to do the reverse. Since JSON schema is more expressive in specifying validation rules, to specify validation rules in typescript types, non-standard annotations are to be used in comments. For this reason I prefer writing schema in JSON schema and convert to typescript types.
+There are converters to convert JSON schema to typescript types and converters to do the reverse. Since JSON schema is more expressive in specifying validation rules, and is a standard with good documentations out there on Internet, I feel it's better to write schema in JSON schema then convert to TS types.
+
+On the other way, to write schema in TS types then convert to schema, requires specifying validation rules in typescript types, with non-standard annotations in comments. I attempted to do this, and found the documentation is insufficient, and also difficult because lack of tool support (code assist). For example in the [API document](https://github.com/YousefED/typescript-json-schema/blob/master/api.md) of typescript-json-schema package I cannot find how to specify the minimum length requirement of a string.
+
+For this reason I prefer writing schema in JSON schema and convert to typescript types.
 
 In my test I used:
 
