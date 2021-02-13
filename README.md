@@ -197,6 +197,26 @@ Comment:
 
 Zod has a lot of design ideas that I agree with. Also the developer experience with zod is good (as good as, and similar to joi & yup). It's very small, zero dependencies, work in browsers and node.js. 
 
+### Superstruct
+
+
+| Goal | Achieved | Comment |
+| ---  | -------- | ------- |
+| DRY | Yes | However enum not correctly inferred|
+| Composable | Yes | |
+| Extensible | Yes | |
+| Fine-grained | Yes | However not providing as rich features as other libraries out-of-box |
+| Combinable | Yes | |
+| Form-friendly | Yes | |
+| Fail-fast | Yes | |
+| Customizable | Yes | |
+| Traversable | Yes | |
+| Standard | No | |
+
+Comment:
+
+Superstruct is yet another validator defining schema with code. However the development experience is not as good as joi, yup and zod. It does not use a fluent API (method chaining) but a nested one, resulting clumsy nested parenthesis. Also type inferring works not well with enums. However the size of superstruct is very small.
+
 
 ## Honorary Mention
 
@@ -224,7 +244,9 @@ String only but feature rich validator. May use to build custom format or refine
 
 For Json schema based, ajv is a good choice. Also it's much more popular then the other options. However JSON schema is more verbose than, and a bit more difficult to work with (still ok) than schema defined with codes.
 
-JOI, YUP, and Zod all define schema with codes, has good typescript support (code assist). They are all very easy to work with. YUP and Zod come with out-of-box typescript type extraction. And both YUP and ZOD claim to be leaner and more front-end friendly. ZOD further claim some advantages over YUP. Zod is very young and cannot compete with the other options for popularity but is very promising.
+JOI, YUP, and Zod all define schema with codes, has good typescript support (code assist). They are all very easy to work with. YUP and Zod come with out-of-box typescript type extraction. And both YUP and ZOD claim to be leaner and more front-end friendly. ZOD further claim some advantages over YUP. 
+
+Zod is the yongest and cannot compete with the other options for popularity but is very promising. It has the smallest size of these solutions, and has no dependency.
 
 IO-TS is very functional programming inclined. In fact it's nearly impossible to work with IO-TS without working with FP-TS and to understand some concepts of functional programming. 
 

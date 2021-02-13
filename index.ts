@@ -26,11 +26,13 @@ import joi from './solutions/joi'
 import jschema from './solutions/json-schema'
 import yup from './solutions/yup'
 import zod from "./solutions/zod"
+import superstruct from "./solutions/superstruct"
 
 export const solutions: [string, Validators][] = [
     ["io-ts", iots],
     ["joi", joi],
     ["json-schema", jschema],
     ['yup', yup],
-    ['zod', zod]
+    ['zod', zod],
+    ['superstruct', superstruct]
 ];
