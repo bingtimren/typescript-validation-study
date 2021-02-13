@@ -100,7 +100,7 @@ Can it work on both back-end and front-end? One user [said](https://www.reddit.c
 | Form-friendly | Yes | There is an "abortEarly" option    |
 | Fail-fast | Yes | |
 | Customizable | Yes | |
-| Traversable | Maybe | Didn't really check. |
+| Traversable | Yes | |
 | Standard | Kind-of | Joi is hugely popular |
 
 
@@ -109,6 +109,7 @@ Comment:
 Joi is hugely popular so there's an ecosystem around it.
 Some says it's heavy and not front-end friendly. The same post suggests yup.
 There are joi browser and joi vue integration packages out there, not sure how it works.
+There is also 'joi-extract-typescript' package to extract typescript without additional build step.
 
 ### YUP
 
@@ -125,7 +126,7 @@ YUP is inspired by Joi. In fact working with YUP is very much like working with 
 | Form-friendly | Yes | |
 | Fail-fast | Yes | |
 | Customizable | Yes | |
-| Traversable |  Not sure | |
+| Traversable |  Yes | |
 | Standard | No, but reasonably popular | |
 
 
@@ -148,6 +149,7 @@ In my test I used:
 
 - ajv : used as JSON Schema validator
 - json-schema-to-typescript : produce typescript types (Note: be careful of a bug that overwrite source file https://github.com/bcherny/json-schema-to-typescript/issues/365)
+
 
 | Goal | Achieved | Comment |
 | ---  | -------- | ------- |
@@ -173,39 +175,60 @@ Yes it's powerful, once you figure out how to do things. Also there are a lot of
 
 My overall experience is json-schema (ajv) is not as easy to use as joi. That's said, ajv claim to work well on both front and back end, while there are complaints about joi on frontend (not verified myself). Both ajv and joi should be powerful enough to satisfy most validation needs.
 
+### Zod
 
-### mongoose + ts-mongoose
-
-References:
-
-https://hackernoon.com/how-to-link-mongoose-and-typescript-for-a-single-source-of-truth-94o3uqc
-
+Zod is a new comer to the game, and apparently assimilated a lot of ideas from existing validators. The design ideas can be found [here](https://colinhacks.com/essays/zod). 
 
 | Goal | Achieved | Comment |
 | ---  | -------- | ------- |
-| DRY | Yes | With additional ts-mongoose type can be extracted |
-| Composable | | |
-| Extensible | | |
-| Fine-grained | | |
-| Combinable | | |
-| Form-friendly | | |
-| Fail-fast | | |
-| Customizable | | |
-| Traversable | | |
-| Standard | | |
+| DRY | Y | Extracting typescript types is one design aim of zod. It works pretty well. |
+| Composable | Yes | |
+| Extensible | | Yes |
+| Fine-grained | Yes | |
+| Combinable | Yes | |
+| Form-friendly | Yes | |
+| Fail-fast | Maybe | ".check" method may do the fast checking, but not explicitly mentioned in document |
+| Customizable | Yes | |
+| Traversable | Yes | |
+| Standard | No | |
 
 
 Comment:
 
-Didn't finish this research. Mongoose is too tightly coupled with mongodb. Did not find a way to validate data without attempt to save it. Not a suitable candidate.
+Zod has a lot of design ideas that I agree with. Also the developer experience with zod is good (as good as, and similar to joi & yup). It's very small, zero dependencies, work in browsers and node.js. 
+
+
+## Honorary Mention
+
+### mongoose + ts-mongoose
+
+With ts-mongoose, schema defined in mongoose can be extracted as typescript type definitions. See this [article](https://hackernoon.com/how-to-link-mongoose-and-typescript-for-a-single-source-of-truth-94o3uqc). However Mongoose is too tightly coupled with mongodb. Did not find a way to validate data without attempt to save it. Not a suitable candidate.
+
+### Package v8n 
+
+It looks like yet another validator similar to joi / yup. However looks like it's still under work to properly support typescript. 
+
+### Package validate-typescript
+
+Yet another validator, last published 2 years ago, not very popular, and no static type extraction support in the box.
+
+### validate.js
+
+It doesn't seem to have Typescript support
+
+### validator.js
+
+String only but feature rich validator. May use to build custom format or refinement.
 
 ## Conclusion
 
-For Json schema based, ajv is a good choice. Also it's much more [popular](https://www.npmtrends.com/ajv-vs-joi-vs-yup-vs-io-ts) then the other options. However JSON schema is more verbose than, and a bit more difficult to work with (still ok) than schema defined with codes.
+For Json schema based, ajv is a good choice. Also it's much more popular then the other options. However JSON schema is more verbose than, and a bit more difficult to work with (still ok) than schema defined with codes.
 
-JOI and YUP are very similar. Both define schema with codes, that has good typescript support (code assist). They are both very easy to work with. YUP claim to be leaner and more front-end friendly.
+JOI, YUP, and Zod all define schema with codes, has good typescript support (code assist). They are all very easy to work with. YUP and Zod come with out-of-box typescript type extraction. And both YUP and ZOD claim to be leaner and more front-end friendly. ZOD further claim some advantages over YUP. Zod is very young and cannot compete with the other options for popularity but is very promising.
 
 IO-TS is very functional programming inclined. In fact it's nearly impossible to work with IO-TS without working with FP-TS and to understand some concepts of functional programming. 
+
+See comparison of these packages [here](https://www.npmtrends.com/ajv-vs-joi-vs-yup-vs-zod-vs-io-ts).
 
 
 ## Maybe one day......

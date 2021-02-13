@@ -25,10 +25,12 @@ import iots from './solutions/io-ts'
 import joi from './solutions/joi'
 import jschema from './solutions/json-schema'
 import yup from './solutions/yup'
+import zod from "./solutions/zod"
 
 export const solutions: [string, Validators][] = [
     ["io-ts", iots],
     ["joi", joi],
     ["json-schema", jschema],
-    ['yup', yup]
+    ['yup', yup],
+    ['zod', zod]
 ];

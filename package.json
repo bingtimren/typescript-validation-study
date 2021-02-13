@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "run-s pre jest",
-    "jest": "jest",
+    "jest": "jest --verbose",
     "pre": "run-p pre:*",
     "pre:joi": "ts-node solutions/joi/script/joi-to-interface.ts",
     "pre:json-schema": "json2ts -i solutions/json-schema/schemas/ -o solutions/json-schema/types/ --cwd solutions/json-schema/schemas/",
@@ -43,7 +43,8 @@
     "ts-mongoose": "0.0.24",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3",
-    "yup": "^0.32.8"
+    "yup": "^0.32.8",
+    "zod": "^1.11.11"
   },
   "devDependencies": {
     "ajv-cli": "^4.0.1"
