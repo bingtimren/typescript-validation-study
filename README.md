@@ -169,6 +169,8 @@ Comment:
 
 This solution ticks all the boxes. Plus ajv claim to be the fastest among all JSON schema validators and works well in both backend and frontend. 
 
+In addition ajv can use JSON schema to generate standalone validation code that claimed "can be used without ajv". This feature is also tested, and the result is good. However, "standalone" / "used without ajv" may not be true in most cases. In the generated code, dependency of ajv is still found, as mentioned in the document "Ajv package should still be a run-time dependency for most schemas, but generated modules can only depend on small parts of it", therefore saving bundle size (tree shaking?).
+
 My experience working with this solution is:
 
 Yes it's powerful, once you figure out how to do things. Also there are a lot of tools out there help you write your schema. However when something went wrong with the schema, sometimes the error message returned from ajv is vague and does not give the location of the error, leaves me scratching my head. To define custom validation keywords with code generation is not intuitive and if things go wrong, it can be difficult to debug (due to the nature of code generation). Nevertheless other methods are provided. 

@@ -7,6 +7,7 @@ import personFormSchema from "./schemas/personForm.json"
 import driverSchema from "./schemas/driver.json"
 import vehicleSchema from "./schemas/vehicle.json"
 import fleetSchema from "./schemas/fleet.json"
+import addKeyword from "./customer-keywords"
 
 const ajv = new Ajv({
     allErrors: true,
@@ -16,22 +17,14 @@ const ajv = new Ajv({
     ]
 });
 addFormats(ajv)
-ajv.addKeyword({
-    keyword: "olderThanFromNow",
-    type: "string", // evaluates against string
-    schemaType: "number", // must receive a number
-    code(ctx: KeywordCxt) {
-        const { data, schema } = ctx;
-        ctx.fail(_`Date.now() - (new Date(${data})).getTime() <= ${schema}`)  // code generation
-    }
-});
+addKeyword(ajv)
 
 const fleetValidator = ajv.getSchema(fleetSchema.$id)
 
 const validators: Validators = {
     person: ajv.getSchema(personSchema.$id),
     driver: ajv.getSchema(driverSchema.$id),
-    fleet: (data)=>fleetValidator!(data)===true?true:fleetValidator!.errors,
+    fleet: (data)=>fleetValidator!(data)===true?true:fleetValidator!.errors, // for inspection of the errors
     vehicle: ajv.getSchema(vehicleSchema.$id),
     personForm: ajv.getSchema(personFormSchema.$id),
 }
