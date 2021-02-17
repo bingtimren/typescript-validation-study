@@ -3,7 +3,7 @@ import * as yup from "yup"
 export const personSchema = yup.object({
     name: yup.string().required().min(3).max(20).matches(/^[a-z A-Z ]+$/),
     dob: yup.date().required().max(new Date(Date.now()-24*60*60*1000*365*18)),
-    sex: yup.string().oneOf(["M", "F", "O"]),
+    sex: yup.string().oneOf(["M", "F", "O"]).default("O"),
     password: yup.string().required().min(5)
 }).unknown(true)
 

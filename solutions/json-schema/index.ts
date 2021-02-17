@@ -19,7 +19,8 @@ const ajv = new Ajv({
     schemas: [
         personSchema, personBasicSchema, personFormSchema, driverSchema, vehicleSchema, fleetSchema
     ],
-    coerceTypes:true
+    coerceTypes:true,
+    useDefaults: true
 });
 addFormats(ajv)
 addKeyword(ajv)

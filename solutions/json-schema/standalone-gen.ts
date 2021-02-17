@@ -23,7 +23,8 @@ const ajv = new Ajv({
     },
     allErrors: true,
     $data: true,
-    schemas: schemas
+    schemas: schemas,
+    useDefaults:true
 })
 
 addFormats(ajv)

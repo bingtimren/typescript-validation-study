@@ -6,7 +6,7 @@ export const personSchema = S.type({
         S.coerce(S.date(), S.string(), (value) => (new Date(value))),
         'dob18years',
         (value) => (Date.now() - value.getTime() >= 24 * 60 * 60 * 1000 * 365 * 18)),
-    sex: S.optional(S.enums(["M", "F", "O"])),
+    sex: S.defaulted(S.optional(S.enums(["M", "F", "O"])), "O"),
     password: S.size(S.string(), 5)
 });
 

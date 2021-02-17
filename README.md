@@ -16,6 +16,7 @@ I wish to find a solution that satisfy the following goals:
 - Combinable - allows multiple validators on same node (AND), or even better, allows a logic expression
 - Customizable - allows custom validators
 - Type Coercion - converting value from one type to another, e.g. string to Date
+- Default - able to provide default value, kind of coercion from undefined -> default value
 - Traversable - runtime schema can be traversed at runtime
 - Standard - if the schema / type defining language is a standard and supported by a community
 
@@ -81,6 +82,7 @@ Reference: https://medium.com/swlh/typescript-runtime-validation-with-io-ts-456f
 | Fail-fast | No | The decoder does not stop at first error |
 | Customizable | Yes | Can write custom decoders, refines, etc. |
 | T-coercion | Yes | Strong typed parser can parse one type to another |
+| Default | Yes | Though need some complex tweaks |
 | Traversable | No | The realtime type is a decoder, with a decode function |
 | Standard | No | Realtime type defined with io-ts |
 
@@ -103,6 +105,7 @@ Can it work on both back-end and front-end? One user [said](https://www.reddit.c
 | Fail-fast | Yes | |
 | Customizable | Yes | |
 | T-coercion | Yes | By default. Can be controlled with `.options({convert:false})` or `.raw()` |
+| Default | Yes | |
 | Traversable | Yes | |
 | Standard | Kind-of | Joi is hugely popular |
 
@@ -130,6 +133,7 @@ YUP is inspired by Joi. In fact working with YUP is very much like working with 
 | Fail-fast | Yes | |
 | Customizable | Yes | |
 | T-coercion | Yes | By default yes. Option 'strict' skip coercion or transformation. See document for details. |
+| Default | Yes | |
 | Traversable |  Yes | |
 | Standard | No, but reasonably popular | |
 
@@ -166,6 +170,7 @@ In my test I used:
 | Fail-fast | Yes | Option "allErrors: false" |
 | Customizable | Yes | See [user defined keywords](https://ajv.js.org/docs/keywords.html) for details. Keywords can be defined with code generation, validation function, compilation function, and macro function. However the document is a bit vague and code generation is difficult to debug, maybe only suitable for simple implementations. See an example in [index.ts](/solutions/json-schema/index.ts).  |
 | T-coercion | Yes* | See [ajv document](https://ajv.js.org/docs/validation.html#coercing-data-types) and comment below |
+| Default | Yes | With option "useDefault".|
 | Traversable | Yes | JSON schema is a JSON itself |
 | Standard | Yes | |
 
@@ -209,6 +214,7 @@ Zod is a new comer to the game, and apparently assimilated a lot of ideas from e
 | Fail-fast | Maybe | ".check" method may do the fast checking, but not explicitly mentioned in document |
 | Customizable | Yes | |
 | T-coercion | Not-yet | It's been discussed. See [issue 264](https://github.com/colinhacks/zod/issues/264). Also library "myzod" is mentioned to do this. |
+| Default | Not-yet | |
 | Traversable | Yes | |
 | Standard | No | |
 
@@ -231,6 +237,7 @@ Zod has a lot of design ideas that I agree with. Also the developer experience w
 | Fail-fast | Yes | |
 | Customizable | Yes | |
 | T-coercion | Yes | See [this](https://docs.superstructjs.org/guides/03-coercing-data) |
+| Default | Yes | Use "defaulted" |
 | Traversable | Yes | |
 | Standard | No | |
 
