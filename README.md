@@ -165,7 +165,7 @@ In my test I used:
 | Form-friendly | Yes | Through an option "allErrors: true" |
 | Fail-fast | Yes | Option "allErrors: false" |
 | Customizable | Yes | See [user defined keywords](https://ajv.js.org/docs/keywords.html) for details. Keywords can be defined with code generation, validation function, compilation function, and macro function. However the document is a bit vague and code generation is difficult to debug, maybe only suitable for simple implementations. See an example in [index.ts](/solutions/json-schema/index.ts).  |
-| T-coercion | Yes | See [ajv document](https://ajv.js.org/docs/validation.html#coercing-data-types)|
+| T-coercion | Yes* | See [ajv document](https://ajv.js.org/docs/validation.html#coercing-data-types) and comment below |
 | Traversable | Yes | JSON schema is a JSON itself |
 | Standard | Yes | |
 
@@ -179,6 +179,8 @@ In addition ajv can use JSON schema to generate standalone validation code that 
 My experience working with this solution is:
 
 Yes it's powerful, once you figure out how to do things. Also there are a lot of tools out there help you write your schema. However when something went wrong with the schema, sometimes the error message returned from ajv is vague and does not give the location of the error, leaves me scratching my head. 
+
+Type coercion has some default out-of-the-box behaviors that's handy. However default coercion lacks string -> Date (Date is not a basic type). Then to write a custom keyword it very difficult. I finally achieved it though. See [code](solutions/json-schema/customer-keywords.ts) for implementation.
 
 Document for custom keyword is terrible, incomplete and out of dated (February 2021). When trying to work out how to create a custom keyword that also modifies data (type coercion) it's even more difficult. At last I realized the string -> Date type coercion in "person" however it's not with code generation, therefore stand-alone validator cannot use.
 
@@ -206,6 +208,7 @@ Zod is a new comer to the game, and apparently assimilated a lot of ideas from e
 | Form-friendly | Yes | |
 | Fail-fast | Maybe | ".check" method may do the fast checking, but not explicitly mentioned in document |
 | Customizable | Yes | |
+| T-coercion | Not-yet | It's been discussed. See [issue 264](https://github.com/colinhacks/zod/issues/264). Also library "myzod" is mentioned to do this. |
 | Traversable | Yes | |
 | Standard | No | |
 
@@ -227,6 +230,7 @@ Zod has a lot of design ideas that I agree with. Also the developer experience w
 | Form-friendly | Yes | |
 | Fail-fast | Yes | |
 | Customizable | Yes | |
+| T-coercion | Yes | See [this](https://docs.superstructjs.org/guides/03-coercing-data) |
 | Traversable | Yes | |
 | Standard | No | |
 
@@ -275,7 +279,7 @@ See comparison of these packages [here](https://www.npmtrends.com/ajv-vs-joi-vs-
 The following candidates are in my radar. I did not try them at this moment, but maybe one day I will.
 
 - class-validator + class-transformer: this is a class based solution. However class-transformer can transform plain Javascript objects into class instances. 
-
+- [myzod](https://github.com/davidmdm/myzod): inspired by zod and claim to be much faster. Still not very popular. See how it goes.
 
 
 ## Reference and credits

@@ -7,8 +7,7 @@ const validator: (schema: S.Struct<any, any>) => ((data: any) => any) =
     (schema) => (
         (data) => {
             try {
-                S.assert(data, schema);
-                return true
+                return S.create(data, schema);
             } catch (err) {
                 const allFailures = []
                 for (const f of err.failures()) {
