@@ -5,7 +5,7 @@ export const personSchema = S.type({
     dob: S.refine(
         S.coerce(S.date(), S.string(), (value) => (new Date(value))),
         'dob18years',
-        (value)=>(Date.now()-value.getTime() >= 24 * 60 * 60 * 1000 * 365 * 18)),
+        (value) => (Date.now() - value.getTime() >= 24 * 60 * 60 * 1000 * 365 * 18)),
     sex: S.optional(S.enums(["M", "F", "O"])),
     password: S.size(S.string(), 5)
 });
