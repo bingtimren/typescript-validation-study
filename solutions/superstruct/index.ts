@@ -14,7 +14,7 @@ const validator: (schema: S.Struct<any, any>) => ((data: any) => any) =
                 for (const f of err.failures()) {
                     allFailures.push(f)
                 }
-                return allFailures
+                throw allFailures
 
             }
         }

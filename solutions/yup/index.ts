@@ -6,14 +6,9 @@ import * as schemas from "./schemas"
 const validator: (schema: yup.BaseSchema) => ((data: any) => any) =
     (schema) => (
         (data) => {
-            try {
-                schema.validateSync(data, {
-                    abortEarly:false
-                });
-                return true;
-            } catch (error) {
-                return error
-            }
+            return schema.validateSync(data, {
+                abortEarly: false
+            });
         }
     )
 

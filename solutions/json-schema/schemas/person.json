@@ -4,38 +4,26 @@
     "title": "Person",
     "description": "A Person",
     "type": "object",
-    "additionalProperties": true,
-    "properties": {
-        "name": {
-            "type": "string",
-            "minLength": 3,
-            "maxLength": 20,
-            "pattern": "[a-z A-Z ]+"
+    "allOf": [
+        {
+            "$ref": "person-basic.json"
         },
-        "dob": {
-            "type": "string",
-            "anyOf": [
-                {"format": "date"},
-                {"format": "date-time"}
-            ],
-            "olderThanFromNow":567648000000
-        },
-        "sex": {
-            "type": "string",
-            "enum": [
-                "M",
-                "F",
-                "O"
-            ]
-        },
-        "password": {
-            "type": "string",
-            "minLength": 5
+        {
+            "properties": {
+                "dob": {
+                    "type": "string",
+                    "toDate": "",
+                    "anyOf": [
+                        {
+                            "format": "date"
+                        },
+                        {
+                            "format": "date-time"
+                        }
+                    ],
+                    "olderThanFromNow": 567648000000
+                }
+            }
         }
-    },
-    "required": [
-        "name",
-        "dob",
-        "password"
     ]
 }

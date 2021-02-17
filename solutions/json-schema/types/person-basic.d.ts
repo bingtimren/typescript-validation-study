@@ -8,17 +8,7 @@
 /**
  * A Person
  */
-export type Person = Person1 & {
-  dob?: {
-    [k: string]: unknown;
-  } & string;
-  [k: string]: unknown;
-};
-
-/**
- * A Person
- */
-export interface Person1 {
+export interface Person {
   name: string;
   dob: {
     [k: string]: unknown;

@@ -7,10 +7,11 @@
     "test": "run-s pre jest",
     "jest": "jest --verbose",
     "pre": "run-p pre:*",
-    "pre:joi": "ts-node solutions/joi/script/joi-to-interface.ts",
-    "pre:json-schema": "json2ts -i solutions/json-schema/schemas/ -o solutions/json-schema/types/ --cwd solutions/json-schema/schemas/",
-    "pre:ajv-code-gen": " ts-node solutions/json-schema/standalone-gen.ts",
-    "inspect": "ts-node inspect-error-objects.ts"
+    "pre:joi": "rm -fr solutions/joi/script/interfaces; ts-node solutions/joi/script/joi-to-interface.ts",
+    "pre:json-schema": "rm -fr solutions/json-schema/types/; json2ts -i solutions/json-schema/schemas/ -o solutions/json-schema/types/ --cwd solutions/json-schema/schemas/",
+    "pre:ajv-code-gen": "rm -fr solutions/json-schema/std-alone; mkdir solutions/json-schema/std-alone; ts-node solutions/json-schema/standalone-gen.ts",
+    "inspect-error": "ts-node inspect-error-objects.ts",
+    "inspect-result": "ts-node inspect-result-objects.ts"
   },
   "engines": {
     "node": ">=0.12"
@@ -38,6 +39,7 @@
     "joi": "^17.3.0",
     "joi-to-typescript": "^1.10.3",
     "json-schema-to-typescript": "^10.1.3",
+    "lodash": "^4.17.20",
     "mongoose": "^5.11.15",
     "npm-run-all": "^4.1.5",
     "superstruct": "^0.14.2",

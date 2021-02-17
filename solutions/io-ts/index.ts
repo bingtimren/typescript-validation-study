@@ -11,7 +11,10 @@ const validator: (decoder: Decoder<any, any>) => ((data: any) => any) =
             pipe(
                 data,
                 decoder.decode,
-                (result: any) => (isRight(result) ? true : draw(result.left))
+                (result: any) => {
+                    if (isRight(result)) { return result.right };
+                    throw draw(result.left)
+                }
             )
         )
     );

@@ -15,6 +15,7 @@ I wish to find a solution that satisfy the following goals:
 - Failfast - for backend validation, fail at first violation
 - Combinable - allows multiple validators on same node (AND), or even better, allows a logic expression
 - Customizable - allows custom validators
+- Type Coercion - converting value from one type to another, e.g. string to Date
 - Traversable - runtime schema can be traversed at runtime
 - Standard - if the schema / type defining language is a standard and supported by a community
 
@@ -79,6 +80,7 @@ Reference: https://medium.com/swlh/typescript-runtime-validation-with-io-ts-456f
 | Form-friendly | Yes-but | Look at the returned object, all errors about all nodes of the data are there. However the useful information is buried in a myriad of wrappers and difficult to use. There is a default error reporter that is able to retrieve the information and organize in a meaningful way, meaning utilization of the information is possible, but more work needs to be done. |
 | Fail-fast | No | The decoder does not stop at first error |
 | Customizable | Yes | Can write custom decoders, refines, etc. |
+| T-coercion | Yes | Strong typed parser can parse one type to another |
 | Traversable | No | The realtime type is a decoder, with a decode function |
 | Standard | No | Realtime type defined with io-ts |
 
@@ -100,6 +102,7 @@ Can it work on both back-end and front-end? One user [said](https://www.reddit.c
 | Form-friendly | Yes | There is an "abortEarly" option    |
 | Fail-fast | Yes | |
 | Customizable | Yes | |
+| T-coercion | Yes | By default. Can be controlled with `.options({convert:false})` or `.raw()` |
 | Traversable | Yes | |
 | Standard | Kind-of | Joi is hugely popular |
 
@@ -126,6 +129,7 @@ YUP is inspired by Joi. In fact working with YUP is very much like working with 
 | Form-friendly | Yes | |
 | Fail-fast | Yes | |
 | Customizable | Yes | |
+| T-coercion | Yes | By default yes. Option 'strict' skip coercion or transformation. See document for details. |
 | Traversable |  Yes | |
 | Standard | No, but reasonably popular | |
 
@@ -161,6 +165,7 @@ In my test I used:
 | Form-friendly | Yes | Through an option "allErrors: true" |
 | Fail-fast | Yes | Option "allErrors: false" |
 | Customizable | Yes | See [user defined keywords](https://ajv.js.org/docs/keywords.html) for details. Keywords can be defined with code generation, validation function, compilation function, and macro function. However the document is a bit vague and code generation is difficult to debug, maybe only suitable for simple implementations. See an example in [index.ts](/solutions/json-schema/index.ts).  |
+| T-coercion | Yes | See [ajv document](https://ajv.js.org/docs/validation.html#coercing-data-types)|
 | Traversable | Yes | JSON schema is a JSON itself |
 | Standard | Yes | |
 
@@ -173,7 +178,17 @@ In addition ajv can use JSON schema to generate standalone validation code that 
 
 My experience working with this solution is:
 
-Yes it's powerful, once you figure out how to do things. Also there are a lot of tools out there help you write your schema. However when something went wrong with the schema, sometimes the error message returned from ajv is vague and does not give the location of the error, leaves me scratching my head. To define custom validation keywords with code generation is not intuitive and if things go wrong, it can be difficult to debug (due to the nature of code generation). Nevertheless other methods are provided. 
+Yes it's powerful, once you figure out how to do things. Also there are a lot of tools out there help you write your schema. However when something went wrong with the schema, sometimes the error message returned from ajv is vague and does not give the location of the error, leaves me scratching my head. 
+
+Document for custom keyword is terrible, incomplete and out of dated (February 2021). When trying to work out how to create a custom keyword that also modifies data (type coercion) it's even more difficult. At last I realized the string -> Date type coercion in "person" however it's not with code generation, therefore stand-alone validator cannot use.
+
+To define custom validation keywords with code generation is not intuitive and if things go wrong, it can be difficult to debug (due to the nature of code generation). Nevertheless other methods are provided. 
+See:
+- [User defined keywords](https://github.com/ajv-validator/ajv/blob/master/docs/keywords.md#define-keyword-with-code-generation-function)
+- [KeywordCxt](https://github.com/ajv-validator/ajv/blob/master/lib/compile/context.ts) and 
+- [SchemaCxt](https://github.com/ajv-validator/ajv/blob/master/lib/compile/index.ts)
+- Examples:
+  - keyword ["type"](https://github.com/ajv-validator/ajv/blob/master/lib/vocabularies/jtd/type.ts)
 
 My overall experience is json-schema (ajv) is not as easy to use as joi. That's said, ajv claim to work well on both front and back end, while there are complaints about joi on frontend (not verified myself). Both ajv and joi should be powerful enough to satisfy most validation needs.
 

@@ -1,4 +1,4 @@
-// validator returns true if validation passed, otherwise whatever
+// validator returns the valid object if validation passed, otherwise throw an error
 export type Validator = (input: unknown) => any;
 
 export interface Validators {

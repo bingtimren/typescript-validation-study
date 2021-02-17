@@ -3,7 +3,7 @@ import addFormats from "ajv-formats"
 import standaloneCode from "ajv/dist/standalone"
 import addKeyword from "./customer-keywords"
 
-import personSchema from "./schemas/person.json"
+import personSchema from "./schemas/person-basic.json"
 import personFormSchema from "./schemas/personForm.json"
 import driverSchema from "./schemas/driver.json"
 import vehicleSchema from "./schemas/vehicle.json"

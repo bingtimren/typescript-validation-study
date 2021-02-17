@@ -6,12 +6,7 @@ import * as schemas from "./schemas"
 const validator: (schema: z.ZodType<any, any>) => ((data: any) => any) =
     (schema) => (
         (data) => {
-            try {
-                schema.parse(data);
-                return true
-            } catch (error) {
-                return error
-            }
+            return schema.parse(data);
         }
     )
 

@@ -1,4 +1,4 @@
-const person = require("./std-alone/person").validateObject
+const person = require("./std-alone/person-basic").validateObject
 const driver = require("./std-alone/driver").validateObject
 const vehicle = require("./std-alone/vehicle").validateObject
 const personForm = require("./std-alone/personForm").validateObject
@@ -9,19 +9,19 @@ import { Validators } from "../.."
 function v(validator:any):any{
     return (data:any)=>{
         if (validator(data)) {
-            return true
+            return data
         } else {
-            return validator.errors;
+            throw validator.errors;
         }
     }
 }
 
 const validators: Validators = {
-    person,
-    driver,
+    person:v(person),
+    driver:v(driver),
     fleet: v(fleet),
-    vehicle,
-    personForm
+    vehicle: v(vehicle),
+    personForm: v(personForm)
 }
 
 export default validators

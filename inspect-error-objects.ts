@@ -1,5 +1,6 @@
 import {testCases} from "./validation-data"
 import {solutions} from "."
+import * as _ from "lodash"
 
 // examine in case of multiple failure, what results are returned from each solution
 
@@ -10,9 +11,13 @@ for (let [solName, solModule] of solutions) {
     const validator = solModule.fleet;
     if (validator !== undefined) {
         console.log(`********************************* Solution ${solName} Validating multiple-failure fleet data *********************************`);
-        const response = validator(fleetMultiFailureData.data);
-        console.log(`typeof response = ${typeof response}`);
-        console.log(`response = ${response}`);
-        console.log(`JSON.stringify(response)=${JSON.stringify(response, null, 2)}`)        
+        try {
+            validator(_.cloneDeep(fleetMultiFailureData.data));
+            console.log("ERROR!!!!!!!!!!!!!!!!!!!!!!!!  SHOULD THROW !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        } catch (response){
+            console.log(`typeof response = ${typeof response}`);
+            console.log(`response = ${response}`);
+            console.log(`JSON.stringify(response)=${JSON.stringify(response, null, 2)}`)        
+        } 
     }
 }
