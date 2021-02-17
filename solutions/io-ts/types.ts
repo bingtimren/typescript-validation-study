@@ -17,13 +17,14 @@ export const Person = pipe(
         password: pipe(
             D.string,
             util.strMinLengthRefine(5)
+        ),
+        sex: pipe(
+            D.union(D.literal("M"), D.literal("F"), D.literal("O"), util.isUndefined),
+            util.withDefault<string>("O")
+
+
         )
-    }),
-    D.intersect(
-        D.partial({ // optional 
-            sex: D.union(D.literal("M"), D.literal("F"), D.literal("O")),
-        })
-    )
+    })
 )
 
 export type Person = D.TypeOf<typeof Person>
