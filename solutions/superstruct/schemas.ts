@@ -6,10 +6,11 @@ export const personSchema = S.type({
         S.coerce(S.date(), S.string(), (value) => (new Date(value))),
         'dob18years',
         (value) => (Date.now() - value.getTime() >= 24 * 60 * 60 * 1000 * 365 * 18)),
-    sex: S.defaulted(S.optional(S.enums(["M", "F", "O"])), "O"),
+    sex: S.optional(S.defaulted(S.enums(["M", "F", "O"] as const), "O")),
     password: S.size(S.string(), 5)
 });
 
+export type Person = S.Infer<typeof personSchema>
 
 export const personFormSchema = S.refine(S.assign(personSchema, S.object({
     repeatPassword: S.string()

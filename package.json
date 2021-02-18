@@ -4,8 +4,9 @@
   "description": "Study various typescript data validation solutions",
   "main": "index.js",
   "scripts": {
-    "test": "run-s pre jest",
+    "test": "run-s pre build-clean jest",
     "jest": "jest --verbose",
+    "build-clean": "tsc; LAST=$?; rm -fr build; exit $LAST",
     "pre": "run-p pre:*",
     "pre:joi": "rm -fr solutions/joi/script/interfaces; ts-node solutions/joi/script/joi-to-interface.ts",
     "pre:json-schema": "rm -fr solutions/json-schema/types/; json2ts -i solutions/json-schema/schemas/ -o solutions/json-schema/types/ --cwd solutions/json-schema/schemas/",

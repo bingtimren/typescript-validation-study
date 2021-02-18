@@ -10,7 +10,7 @@ const validPersonData = testCases.filter((testcase) => (testcase.schema === "per
 for (let [solName, solModule] of solutions) {
     const validator = solModule.person;
     if (validator !== undefined) {
-        console.log(`********************************* Solution ${solName} Validating valid person data *********************************`);
+        console.log(`********************************* Solution [${solName}] Validating valid person data *********************************`);
         const result = validator(_.cloneDeep(validPersonData.data))
         console.log(`result = ${result}`);
         console.log(`TYPE COERCION = ${(result && result.dob && result.dob instanceof Date)?'TRUE':'FALSE'}`);

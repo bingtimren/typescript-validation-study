@@ -12,7 +12,7 @@ I wish to find a solution that satisfy the following goals:
 - Extensible (Composable & Extensible) - if data types are related, e.g. composition (one data type is the part of another), inheritance (one data type is the base of another), the solution shall allow such relationship so as not to repeat the codes
 - Fine-grained - enables validations similar to https://json-schema.org/draft/2019-09/json-schema-validation.html
 - Form-friendly - if the validation is friendly to UI forms, i.e. validate multiple fields, and give meaningful information
-- Failfast - for backend validation, fail at first violation
+- Fail-fast - for backend validation, fail at first violation
 - Combinable - allows multiple validators on same node (AND), or even better, allows a logic expression
 - Customizable - allows custom validators
 - Type Coercion - converting value from one type to another, e.g. string to Date
@@ -32,7 +32,7 @@ Person:
 
 PersonForm:
   extends Person (tests Extensible)
-  - repeatPassword: same as password (Customisable, Form-friendly)
+  - repeatPassword: same as password (Customizable, Form-friendly)
 
 Driver:
   extends Person (tests Extensible)
@@ -90,6 +90,8 @@ Comment:
 
 To use io-ts also means to use at least some basic fp-ts and functional programming.
 
+Generally when schema is a bit complex, type inference does not work that well. Also because io-ts kind of insisting functional programming purity, somethings it's difficult to figure out how to make things work as I'm not very familiar with functional programming.
+
 ### Joi
 
 Can it work on both back-end and front-end? One user [said](https://www.reddit.com/r/reactjs/comments/awluya/reusable_validation_at_serverside_and_frontend/) "I used shared joi schema on backend, web frontend and react-native app. In the end I ditched it, because it's super heavy and requires joi-browser and some extra hacking to work on client side."
@@ -117,6 +119,8 @@ Some says it's heavy and not front-end friendly. The same post suggests yup.
 There are joi browser and joi vue integration packages out there, not sure how it works.
 There is also 'joi-extract-typescript' package to extract typescript without additional build step.
 
+Type generation is actually much better than inference. The generated schema is straight-forward (not relying on union etc.) and enum works like a charm.
+
 ### YUP
 
 YUP is inspired by Joi. In fact working with YUP is very much like working with JOI. Both very easy to work with, especially with code assist when defining schemas. TS types can be converted from schema out-of-box, without adding another tool or build step.
@@ -128,7 +132,7 @@ YUP is inspired by Joi. In fact working with YUP is very much like working with 
 | Composable | Yes | |
 | Extensible | Yes | |
 | Fine-grained | Yes | |
-| Combinable | | Yes |
+| Combinable | Yes | |
 | Form-friendly | Yes | |
 | Fail-fast | Yes | |
 | Customizable | Yes | |
@@ -141,6 +145,11 @@ YUP is inspired by Joi. In fact working with YUP is very much like working with 
 Comment:
 
 YUP self-claim to be the leaner and more front-end friendly alternative of JOI, and probably there's a truth behind it. In terms of [popularity](https://www.npmtrends.com/ajv-vs-joi-vs-yup) JOI is a bit more popular than YUP. Yet I found some developer comments their switch from JOI to YUP. 
+
+About type inference:
+- enum works, but needs to define an enum to make it work. `sex: yup.mixed<Sex>().oneOf(Object.values(Sex)).default(Sex.OTHER),`
+- another option without forcing an enum is like [this](./solutions/yup/schemas.ts), however do read the comments in the code. 'optional' and enum does not mix well.
+- inference generally works ok, but when type becomes complex (see Fleet) yup types begin to mix in.
 
 
 ### json-schema based
@@ -178,6 +187,8 @@ In my test I used:
 Comment:
 
 This solution ticks all the boxes. Plus ajv claim to be the fastest among all JSON schema validators and works well in both backend and frontend. 
+
+Type generation - looks ok, but when schema references each other the generated type definitions do not. Resulting multiple definitions of the same schema appear multiple times.
 
 In addition ajv can use JSON schema to generate standalone validation code that claimed "can be used without ajv". This feature is also tested, and the result is good. However, "standalone" / "used without ajv" may not be true in most cases. In the generated code, dependency of ajv is still found, as mentioned in the document "Ajv package should still be a run-time dependency for most schemas, but generated modules can only depend on small parts of it", therefore saving bundle size (tree shaking?).
 
@@ -223,6 +234,10 @@ Comment:
 
 Zod has a lot of design ideas that I agree with. Also the developer experience with zod is good (as good as, and similar to joi & yup). It's very small, zero dependencies, work in browsers and node.js. 
 
+Type inference also works somehow better than Yup. Enum inference works out-of-the-box. Inferred type Fleet is more readable.
+
+Only regret that Zod does not support type coercion and default value - yet. I'm still watching it with a lot of interest.
+
 ### Superstruct
 
 
@@ -245,6 +260,7 @@ Comment:
 
 Superstruct is yet another validator defining schema with code. However the development experience is not as good as joi, yup and zod. It does not use a fluent API (method chaining) but a nested one, resulting clumsy nested parenthesis. Also type inferring works not well with enums. However the size of superstruct is very small.
 
+Type inference works the best among the type inference solutions. About enum, for type inference to work, it should be passed an array literal like this: `S.optional(S.defaulted(S.enums(["M", "F", "O"] as const), "O"))`
 
 ## Honorary Mention
 
@@ -274,11 +290,11 @@ For Json schema based, ajv is a good choice. Also it's much more popular then th
 
 JOI, YUP, and Zod all define schema with codes, has good typescript support (code assist). They are all very easy to work with. YUP and Zod come with out-of-box typescript type extraction. And both YUP and ZOD claim to be leaner and more front-end friendly. ZOD further claim some advantages over YUP. 
 
-Zod is the yongest and cannot compete with the other options for popularity but is very promising. It has the smallest size of these solutions, and has no dependency.
+Zod is the youngest and cannot compete with the other options for popularity but is very promising. It has the smallest size of these solutions, and has no dependency.
 
 IO-TS is very functional programming inclined. In fact it's nearly impossible to work with IO-TS without working with FP-TS and to understand some concepts of functional programming. 
 
-See comparison of these packages [here](https://www.npmtrends.com/ajv-vs-joi-vs-yup-vs-zod-vs-io-ts).
+See comparison of these packages [here](https://www.npmtrends.com/ajv-vs-joi-vs-yup-vs-zod-vs-io-ts-vs-superstruct).
 
 
 ## Maybe one day......

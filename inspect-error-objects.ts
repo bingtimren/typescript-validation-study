@@ -10,7 +10,7 @@ const fleetMultiFailureData = testCases.filter((testcase)=>(testcase.schema==="f
 for (let [solName, solModule] of solutions) {
     const validator = solModule.fleet;
     if (validator !== undefined) {
-        console.log(`********************************* Solution ${solName} Validating multiple-failure fleet data *********************************`);
+        console.log(`********************************* Solution [${solName}] Validating multiple-failure fleet data *********************************`);
         try {
             validator(_.cloneDeep(fleetMultiFailureData.data));
             console.log("ERROR!!!!!!!!!!!!!!!!!!!!!!!!  SHOULD THROW !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")

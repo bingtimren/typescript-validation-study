@@ -1,5 +1,6 @@
 // purpose of this module is to test TS types generated from the schemas
 import {FleetInput} from "."
+// import { Sex } from "./schemas"
 
 // valid values
 export const f1 : FleetInput = []
@@ -9,7 +10,7 @@ export const f2 : FleetInput = [ {
         licenseNo: "",
         name: "",
         password: "",
-        sex: ""
+        sex: 'M'
     }, 
     vehicle:{
         length:1.3,
@@ -24,7 +25,8 @@ export const f3 : FleetInput = [ {
         licenseNo: "",
         name: "",
         password: "",
-        sex: undefined // sex property optional
+        // because enum and optional do not mix in YUP type inference
+        sex: "M" // even optional property requires explicitly providing undefined value
     }, 
     vehicle:{
         length:1.3,
