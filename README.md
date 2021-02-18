@@ -288,9 +288,13 @@ String only but feature rich validator. May use to build custom format or refine
 
 For Json schema based, ajv is a good choice. Also it's much more popular then the other options. However JSON schema is more verbose than, and a bit more difficult to work with (still ok) than schema defined with codes.
 
-JOI, YUP, and Zod all define schema with codes, has good typescript support (code assist). They are all very easy to work with. YUP and Zod come with out-of-box typescript type extraction. And both YUP and ZOD claim to be leaner and more front-end friendly. ZOD further claim some advantages over YUP. 
+JOI, YUP, Superstruct and Zod all define schema with codes, has good typescript support (code assist). 
 
-Zod is the youngest and cannot compete with the other options for popularity but is very promising. It has the smallest size of these solutions, and has no dependency.
+JOI, YUP and Zod all use a fluent API that's more easy to work with than superstruct. JOI may not be very front-end friendly, and does not come with type inference out-of-box (but there exists tool to convert schemas to TS types). Zod lacks type coercion and default value features at this moment, although it's catching up. YUP's type inference is not as good as superstruct. Superstruct is very small in size, has the best type inference among them all, but the API is a bit more difficult to work with (not that difficult, just a lot embedded parentheses).
+
+Zod is the youngest and cannot compete with the other options for popularity but is very promising. It has a small size and no dependency.
+
+Superstruct, although lacks fluent API, still performs very well and should be seriously considered.
 
 IO-TS is very functional programming inclined. In fact it's nearly impossible to work with IO-TS without working with FP-TS and to understand some concepts of functional programming. 
 
