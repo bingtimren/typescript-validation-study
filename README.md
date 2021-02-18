@@ -258,9 +258,9 @@ Only regret that Zod does not support type coercion and default value - yet. I'm
 
 Comment:
 
-Superstruct is yet another validator defining schema with code. However the development experience is not as good as joi, yup and zod. It does not use a fluent API (method chaining) but a nested one, resulting clumsy nested parenthesis. Also type inferring works not well with enums. However the size of superstruct is very small.
+Superstruct is yet another validator defining schema with code. However the development experience is not as good as joi, yup and zod. It does not use a fluent API (method chaining) but a nested one, resulting clumsy nested parenthesis. 
 
-Type inference works the best among the type inference solutions. About enum, for type inference to work, it should be passed an array literal like this: `S.optional(S.defaulted(S.enums(["M", "F", "O"] as const), "O"))`
+However the size of superstruct is very small, if not the smallest among the candidates. Type inference works the best among the type inference solutions. About enum, for type inference to work, it should be passed an array literal like this: `S.optional(S.defaulted(S.enums(["M", "F", "O"] as const), "O"))`
 
 ## Honorary Mention
 
