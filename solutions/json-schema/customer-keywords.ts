@@ -1,5 +1,5 @@
 import Ajv, { _, KeywordCxt } from "ajv"
-import {DataValidationCxt} from "ajv/dist/types"
+import { DataValidationCxt } from "ajv/dist/types"
 
 export default function (ajv: Ajv) {
     ajv.addKeyword({
@@ -13,15 +13,13 @@ export default function (ajv: Ajv) {
     });
     ajv.addKeyword({
         keyword: "toDate",
-        schema:false,
+        schema: false,
         modifying: true,
         type: "string", // evaluates against string
-        compile: function (sch, parentSchema) {
-            return function (value:any, ctx?: DataValidationCxt) {
-                if (typeof value === "string" && ctx!==undefined)
-                     ctx.parentData[ctx.parentDataProperty] = new Date(value);
-                return true;
-            }
-        },
+        validate: function (value: any, ctx?: DataValidationCxt) {
+            if (typeof value === "string" && ctx !== undefined)
+                ctx.parentData[ctx.parentDataProperty] = new Date(value);
+            return true;
+        }
     });
 };

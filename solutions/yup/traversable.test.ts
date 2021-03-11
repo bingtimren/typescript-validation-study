@@ -1,6 +1,6 @@
 import {fleetSchema, driverSchema} from "./schemas"
 
-describe("Joi schema traversable test", ()=>{
+describe("Yup schema traversable test", ()=>{
     it("is able to determine that type of fleet is an array, and driver is an object", ()=>{
         expect(fleetSchema.describe().type).toBe("array"),
         expect(driverSchema.describe().type).toBe("object")
