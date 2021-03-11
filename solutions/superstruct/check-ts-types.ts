@@ -49,4 +49,4 @@ export const f4 : Fleet = [ {
 }]
 
 
-// result: type inference ok but enum does not work well
+// result: type inference works very well
