@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/bingtimren/typescript-validation-study#readme",
   "dependencies": {
-    "@tsconfig/node14": "^1.0.0",
+    "@tsconfig/node10": "^1.0.7",
     "@types/jest": "^26.0.20",
     "@types/mongoose": "^5.10.3",
     "ajv": "^7.0.4",
