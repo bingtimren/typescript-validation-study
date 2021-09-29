@@ -3,7 +3,7 @@ import * as z from "zod"
 export const personSchema =  z.object({
     name: z.string().min(3).max(20).regex(/^[a-z A-Z ]+$/),
     dob: z.string().
-        refine((strDate)=>((new Date(strDate)).getTime() <= Date.now()-24*60*60*1000*365*18)),
+        refine((strDate)=>((new Date(strDate)).getTime() <= Date.now()-24*60*60*1000*365*18)).transform((val)=>new Date(val)),
     sex: z.enum(["M","F","O"]).optional(),
     password: z.string().min(5)
 });

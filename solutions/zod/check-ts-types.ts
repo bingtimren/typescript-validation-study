@@ -5,7 +5,7 @@ import {Fleet} from "./schemas"
 export const f1 : Fleet = []
 export const f2 : Fleet = [ {
     driver:{
-        dob: new Date().toISOString(),
+        dob: new Date(),
         licenseNo: "",
         name: "",
         password: "",
@@ -20,7 +20,7 @@ export const f2 : Fleet = [ {
 
 export const f3 : Fleet = [ {
     driver:{
-        dob: new Date().toISOString(),
+        dob: new Date(),
         licenseNo: "",
         name: "",
         password: "",
@@ -35,7 +35,7 @@ export const f3 : Fleet = [ {
 
 export const f4 : Fleet = [ {
     driver:{
-        dob: new Date().toISOString(),
+        dob: new Date(),
         licenseNo: "",
         name: "",
         password: "",
