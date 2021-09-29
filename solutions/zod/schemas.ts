@@ -6,7 +6,7 @@ export const personSchema =  z.object({
         refine((strDate)=>((new Date(strDate)).getTime() <= Date.now()-24*60*60*1000*365*18)),
     sex: z.enum(["M","F","O"]).optional(),
     password: z.string().min(5)
-}).nonstrict();
+});
 
 export const personFormSchema = personSchema.extend({
     repeatPassword: z.string()
